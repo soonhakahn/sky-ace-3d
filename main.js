@@ -1,7 +1,4 @@
 import * as THREE from 'https://unpkg.com/three@0.161.0/build/three.module.js';
-import { EffectComposer } from 'https://unpkg.com/three@0.161.0/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'https://unpkg.com/three@0.161.0/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'https://unpkg.com/three@0.161.0/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 const scoreEl = document.getElementById('score');
 const bestEl = document.getElementById('best');
@@ -24,9 +21,7 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 document.body.appendChild(renderer.domElement);
 
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, camera));
-composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.95, 0.58, 0.22));
+// Post-processing removed for maximum compatibility across mobile browsers.
 
 const hemi = new THREE.HemisphereLight(0x9fd3ff, 0x1d1747, 1.4);
 const dir = new THREE.DirectionalLight(0xffffff, 1.1);
@@ -174,9 +169,13 @@ boostBtn.addEventListener('mouseleave', () => touch.boost = false);
 let audioCtx;
 let engineOsc;
 let engineGain;
-function startAudio() {
-  if (audioCtx) return;
+async function startAudio() {
+  if (audioCtx) {
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
+    return;
+  }
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') await audioCtx.resume();
   engineOsc = audioCtx.createOscillator();
   engineOsc.type = 'sawtooth';
   engineGain = audioCtx.createGain();
@@ -235,9 +234,9 @@ function updateHud() {
   speedEl.textContent = speed.toFixed(2);
 }
 
-startBtn.onclick = () => {
+startBtn.onclick = async () => {
   startOverlay.classList.add('hidden');
-  startAudio();
+  await startAudio();
   resetGame();
 };
 restartBtn.onclick = () => resetGame();
@@ -349,7 +348,7 @@ function animate() {
   }
 
   updateTrail();
-  composer.render();
+  renderer.render(scene, camera);
 }
 animate();
 
@@ -357,5 +356,5 @@ addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
-  composer.setSize(innerWidth, innerHeight);
+  // no composer
 });
