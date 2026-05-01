@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sky Ace 3D</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="hud">
+    <div id="title">✈️ Sky Ace 3D</div>
+    <div id="stats">
+      <span>Score: <b id="score">0</b></span>
+      <span>Best: <b id="best">0</b></span>
+      <span>Speed: <b id="speed">0</b></span>
+    </div>
+    <div id="help">W/S 고도 · A/D 롤 · ←/→ 회전 · Space 부스트 · P 일시정지</div>
+  </div>
+
+  <div id="startOverlay" class="overlay">
+    <h1>Sky Ace 3D</h1>
+    <p>장애물을 피하며 비행하세요. 링을 통과하면 보너스 점수!</p>
+    <button id="startBtn">게임 시작</button>
+    <small>모바일: 왼쪽 패드(이동), 오른쪽 패드(고도/롤), BOOST 버튼</small>
+  </div>
+
+  <div id="gameOverOverlay" class="overlay hidden">
+    <h2>Game Over</h2>
+    <p>점수: <b id="finalScore">0</b></p>
+    <button id="restartBtn">다시 하기</button>
+  </div>
+
+  <div id="mobileControls">
+    <div id="padLeft" class="pad"></div>
+    <div id="padRight" class="pad"></div>
+    <button id="boostBtn">BOOST</button>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
