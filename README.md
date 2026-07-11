@@ -25,3 +25,10 @@ python3 -m http.server 8080
 ---
 배포 URL (모바일 포함):
 - https://soonhakahn.github.io/sky-ace-3d/
+
+## WordWise Companion
+
+`wordwise/` 폴더에는 별도의 앱인 **WordWise Companion**(영어 단어/표현 학습 도우미 채팅 앱)이 있습니다.
+자세한 내용은 [`wordwise/README.md`](./wordwise/README.md)를 참고하세요.
+
+- 배포 URL: https://soonhakahn.github.io/sky-ace-3d/wordwise/

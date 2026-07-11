@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordWise Companion</title>
+  <meta name="description" content="영어 단어와 표현의 의미, 발음, 뉘앙스를 함께 배우는 AI 영어 학습 도우미" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="appHeader">
+      <div class="title-block">
+        <h1>🧭 WordWise Companion</h1>
+        <p class="tagline">Think in English — 발음과 뉘앙스까지 배우는 영어 도우미</p>
+      </div>
+      <div class="header-actions">
+        <button id="newChatBtn" title="New conversation">New chat</button>
+        <button id="settingsBtn" title="Settings">⚙️ Settings</button>
+      </div>
+    </header>
+
+    <main id="chat" aria-live="polite"></main>
+
+    <form id="composer">
+      <textarea
+        id="input"
+        rows="1"
+        placeholder="단어, 표현, 문장을 입력하세요 (예: make up)"
+        aria-label="Message"
+      ></textarea>
+      <button id="sendBtn" type="submit">Send</button>
+    </form>
+  </div>
+
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Settings</h2>
+
+      <label for="apiKeyInput">Anthropic API Key</label>
+      <input type="password" id="apiKeyInput" placeholder="sk-ant-..." autocomplete="off" />
+
+      <label for="modelSelect">Model</label>
+      <select id="modelSelect">
+        <option value="claude-sonnet-5">Claude Sonnet 5 (Recommended)</option>
+        <option value="claude-opus-4-8">Claude Opus 4.8</option>
+        <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (Fastest)</option>
+      </select>
+
+      <p class="hint">
+        API 키는 이 브라우저(로컬 저장소)에만 저장되며, Anthropic API로 직접 전송됩니다.
+        서버로 전송되거나 저장되지 않습니다. 키가 없다면
+        <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a>
+        에서 발급받을 수 있습니다.
+      </p>
+
+      <div class="modal-actions">
+        <button id="closeSettingsBtn" type="button" class="secondary">Close</button>
+        <button id="saveSettingsBtn" type="button" class="primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
