@@ -70,9 +70,21 @@ Telegram `parse_mode=HTML`로 `<b>`(굵게)·`<code>`(IPA용 코드체)만 사�
 - **pass** (동사): 건네주다
 - **up to** (전치사구): ~하는 중인, 계획 중인
 
+## Obsidian 노트 저장
+
+iCloud에는 클라우드 세션에서 직접 쓸 수 있는 공개 API가 없어서(애플이 제공하지
+않음), 완전 자동으로 iCloud 폴더에 파일을 넣는 것은 불가능합니다. 대신:
+
+- 매일 텍스트 메시지 2통에 더해, 영어+IPA+연음 설명+한글 번역을 한 파일에 합친
+  **Obsidian용 마크다운(.md) 노트**를 만들어 Telegram **문서(파일)**로 함께 전송합니다.
+  받는 사람은 텔레그램에서 "파일에 저장"으로 iCloud Obsidian 볼트에 바로 저장할 수 있습니다.
+- 동시에 이 저장소의 `daily-english/notes/<날짜>-<주제>.md`에도 백업 커밋을 시도합니다
+  (best-effort — 실패해도 텔레그램 발송에는 영향 없음).
+
 ## 발송 방식
 
 - Claude Code **Routine**을 매일 06:30 KST(=21:30 UTC 전날)에 실행되도록 예약. (매번 새 세션을 띄우는 `create_new_session_on_fire` 방식)
 - Routine 프롬프트가 위 포맷에 따라 새로운 10문장을 생성하고, 요일별 주제로 로테이션.
 - 생성된 텍스트를 Telegram Bot API(`sendMessage`, `parse_mode=HTML`)로 `https://t.me/shahn01bot` 채팅으로 전송.
 - 영어 블록(메시지 1)과 한글+단어 분석 블록(메시지 2)을 항상 분리 전송.
+- 이어서 통합 Obsidian 노트를 `sendDocument`로 파일 첨부 전송하고, 저장소에도 백업 커밋 시도.
